@@ -1,0 +1,19 @@
+create table bookstore_database (id integer primary key, name text, author_last_name text, price integer, quantity integer, category text);
+insert into bookstore_database values
+(1, "Pride and Prejudice", "Austen", 15, 3, "Fiction"),
+(2, "The Fellowship of the Ring", "Tolkien", 20, 6, "Fantasy"), 
+(3, "Jane Eyre", "Bronte", 12, 4, "Fiction"), 
+(4, "Harry Potter and the Sorceror's Stone", "Rowling", 12, 5, "Youth Fantasy"),
+(5, "To Kills a Mockingbird", "Lee", 8, 6, "Fiction"), 
+(6, "1984", "Orwell", 7, 2, "Science Fiction"),
+(7, "The Golden Compass", "Pullman", 15, 4, "Youth Fantasy"), 
+(8, "Great Expectations", "Dickens", 20, 3, "Fiction"),
+(9, "Little Women", "Alcott", 12, 4, "Fiction"),
+(10, "Tess of the d'ubervilles", "Hardy", 10, 2, "Fiction"), 
+(11, "The Hobbit", "Tolkien", 15, 3, "Fantasy"), 
+(12, "The Hitchhiker's Guide to the Galaxy", "Adams", 12, 3, "Science Fiction"), 
+(13, "The Grapes of Wrath", "Steinbeck", 15, 2, "Fiction"), 
+(14, "Charlie and the Chocolate Factory", "Dahl", 12, 4, "Youth Fiction"), 
+(15, "A Clockwork Orange", "Burgess", 10, 2, "Science Fiction"); 
+select * from bookstore_database order by price desc;
+select category, count (*) from bookstore_database group by category 
