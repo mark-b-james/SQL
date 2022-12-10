@@ -1,7 +1,10 @@
-create table bookstore_database (id integer primary key, name text, author_last_name text, price integer, quantity integer, category text);
-insert into bookstore_database values
+--Create a bookstore database
+
+CREATE TABLE bookstore_database (id INTEGER PRIMARY KEY, name TEXT, author_last_name TEXT, price INTEGER, quantity INTEGER, category TEXT);
+
+INSERT INTO bookstore_database VALUES 
 (1, "Pride and Prejudice", "Austen", 15, 3, "Fiction"),
-(2, "The Fellowship of the Ring", "Tolkien", 20, 6, "Fantasy"), 
+(2, "The Fellowship of the Ring", "Tolkien", 18, 6, "Fantasy"), 
 (3, "Jane Eyre", "Bronte", 12, 4, "Fiction"), 
 (4, "Harry Potter and the Sorceror's Stone", "Rowling", 12, 5, "Youth Fantasy"),
 (5, "To Kills a Mockingbird", "Lee", 8, 6, "Fiction"), 
@@ -9,11 +12,25 @@ insert into bookstore_database values
 (7, "The Golden Compass", "Pullman", 15, 4, "Youth Fantasy"), 
 (8, "Great Expectations", "Dickens", 20, 3, "Fiction"),
 (9, "Little Women", "Alcott", 12, 4, "Fiction"),
-(10, "Tess of the d'ubervilles", "Hardy", 10, 2, "Fiction"), 
+(10, "Winnie the Pooh", "Milne", 10, 1, "Youth Fiction"), 
 (11, "The Hobbit", "Tolkien", 15, 3, "Fantasy"), 
 (12, "The Hitchhiker's Guide to the Galaxy", "Adams", 12, 3, "Science Fiction"), 
 (13, "The Grapes of Wrath", "Steinbeck", 15, 2, "Fiction"), 
 (14, "Charlie and the Chocolate Factory", "Dahl", 12, 4, "Youth Fiction"), 
-(15, "A Clockwork Orange", "Burgess", 10, 2, "Science Fiction"); 
-select * from bookstore_database order by price desc;
-select category, count (*) from bookstore_database group by category 
+(15, "Dune", "Herbert", 10, 1, "Science Fiction");
+
+--display the database ordered by price.
+SELECT * from bookstore_database 
+ORDER BY price desc;
+
+--how many books are in each category and what is the average price?
+SELECT category, COUNT(category) "total count", ROUND(AVG(price), 2) "average price"
+FROM bookstore_database
+GROUP BY category;
+
+--what items are almost out of stock?
+SELECT id, name, quantity
+FROM bookstore_database
+WHERE quantity < 3
+ORDER by quantity asc;
+
