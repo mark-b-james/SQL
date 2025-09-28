@@ -1,0 +1,86 @@
+CREATE TABLE superstore (
+    item_id INTEGER PRIMARY KEY,
+    item_name TEXT,
+    category TEXT,
+    price DECIMAL(10, 2),
+    stock_quantity INTEGER,
+    average_rating DECIMAL(3, 2)
+);
+
+INSERT INTO superstore (item_id, item_name, category, price, stock_quantity, average_rating)
+VALUES
+    (1, 'Stainless Steel Cookware Set', 'Kitchen Supplies', 89.99, 50, 4.6),
+    (2, 'Memory Foam Mattress', 'Furnishings', 499.99, 30, 4.8),
+    (3, 'Smart LED TV', 'Electronics', 549.00, 20, 4.5),
+    (4, 'Robot Vacuum Cleaner', 'Appliances', 199.50, 40, 4.3),
+    (5, 'Wireless Bluetooth Speaker', 'Electronics', 39.99, 60, 4.2),
+    (6, 'Non-Stick Baking Set', 'Kitchen Supplies', 29.95, 80, 4.4),
+    (7, 'Cotton Bedding Set', 'Furnishings', 89.00, 25, 4.7),
+    (8, 'Smart Home Security Camera', 'Electronics', 79.95, 15, 4.1),
+    (9, 'Air Purifier', 'Appliances', 129.50, 35, 4.6),
+    (10, 'Premium Coffee Maker', 'Kitchen Supplies', 79.99, 50, 4.9),
+    (11, 'Ergonomic Office Chair', 'Furnishings', 189.00, 20, 4.5),
+    (12, 'Wireless Earbuds', 'Electronics', 49.99, 75, 4.3),
+    (13, 'Slow Cooker', 'Appliances', 49.95, 30, 4.7),
+    (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
+    (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
+    
+    
+-- © Copyright 2025 Break Into Tech  --
+
+
+
+
+--Write a SQL query that orders the items by price
+SELECT item_name, price
+FROM superstore
+ORDER BY price desc;
+
+--Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
+Select category, COUNT(category) "total count", ROUND(AVG(price), 2) "average price"
+FROM superstore
+GROUP BY category;
+
+--Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies". 
+--Question - What are the top 3 most expensive items in the 'Kitchen Supplies' category?
+SELECT *
+FROM superstore
+WHERE category='Kitchen Supplies'
+ORDER BY price desc
+LIMIT 3;
+
+--Question - What is the average price, maximum price, and number of items in the "Kitchen Supplies" category?
+SELECT 'Kitchen Supplies' AS category_name,
+    -- The average price of items in this category
+ROUND(AVG(price), 2) AS "Average Price",
+    -- The highest price item in this category
+MAX(price) AS "Maximum Price",
+    -- The total count of items in this category
+COUNT(item_id) AS "Item Count"
+FROM superstore
+WHERE category = 'Kitchen Supplies';
+
+--Come up with your own question about the data and try to answer it using SQL. 
+
+--Question - What is the average price and average rating for each product category? List the results, ordered by the category with the highest average rating first.
+SELECT category AS "Product Category",
+    -- Calculate the average price for all items in the category
+ROUND(AVG(price), 2) AS "Average Price",
+    -- Calculate the average of all item ratings in the category
+ROUND(AVG(average_rating), 2) AS "Average Category Rating"
+FROM superstore
+    -- Group the results by category to apply the aggregate functions (AVG)
+GROUP BY category
+    -- Order the results to show the highest-rated categories first
+ORDER BY "Average Category Rating" DESC;
+
+--Question - What is the total inventory value for each category?
+SELECT category AS "Product Category",
+    -- Calculate the total inventory value for the category 
+SUM(price * stock_quantity) AS "Total Inventory Value"
+FROM superstore
+    -- Group the results by category
+GROUP BY category
+    -- Order the results to show the categories with the highest total value first
+ORDER BY "Total Inventory Value" DESC;
+
